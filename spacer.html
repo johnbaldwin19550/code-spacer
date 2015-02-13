@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<title>Code Spacer</title>
+<style type="text/css">
+h1,h2,h3{
+text-align:center;
+}
+body{
+padding:80px;
+}
+#input{
+width:100%;
+height:500px;
+display:block;
+margin:0 auto;
+}
+button{
+margin:0 auto;
+width:400px;
+height:60px;
+font-size:200%;
+}
+</style>
+<script type="text/javascript">
+function convert(){
+var input=document.getElementById("input").value.toString();
+var newText="";
+input=input.replace(/\t/g, "");
+var lines=input.split("\n");
+var spaceCount=0;
+for(var i=0; i<lines.length; i++){
+var howManyOpens=lines[i].split("{").length-1;
+var howManyCloses=lines[i].split("}").length-1;
+spaceCount-=howManyCloses;
+var indent="";
+for(var s=0; s<spaceCount; s++){
+indent+="\t";
+}
+lines[i]=indent+lines[i];
+newText+=lines[i]+"\n";
+spaceCount+=howManyOpens;
+}
+document.getElementById("input").value=newText;
+}
+
+</script>
+</head>
+<body>
+<h1>Code Spacer</h1>
+<h3>Automatic tab spacing for source code with curly braces {}</h3>
+<textarea id="input"></textarea><button onclick="convert();" style="display:block">Space it!</button>
+</body>
+</html>
